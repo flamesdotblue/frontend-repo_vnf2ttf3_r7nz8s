@@ -37,6 +37,17 @@ export default function App() {
           <div className="p-6 space-y-6">
             {selectedKey === 'dashboard' ? (
               <>
+                {/* Hero banner */}
+                <section className="relative overflow-hidden rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 text-white px-6 py-8">
+                  <div className="relative z-10">
+                    <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">إدارة الموارد البشرية</h2>
+                    <p className="mt-2 text-sm md:text-base text-white/90 max-w-3xl">
+                      واجهة حديثة ومتوافقة مع المعايير التونسية 2025. سنضيف إدارة البيانات والتقارير والعمليات خطوة بخطوة.
+                    </p>
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(600px_300px_at_80%_20%,#fff,transparent)]" />
+                </section>
+
                 <StatsOverview />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
