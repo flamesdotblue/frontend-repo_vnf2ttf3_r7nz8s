@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Calendar, DollarSign, Clock, Briefcase, BarChart3, FileText, Settings } from 'lucide-react';
+import { Users, Calendar, DollarSign, Clock, Briefcase, BarChart3, FileText, Settings, Search, Plus, Download, Filter } from 'lucide-react';
 
 const SectionCard = ({ title, icon: Icon, children, hint }) => (
   <section className="bg-white rounded-xl border border-gray-200 p-6">
@@ -22,21 +22,117 @@ function EmptyState({ message }) {
   );
 }
 
+function StatPill({ label, value, color = 'indigo' }) {
+  const colorMap = {
+    indigo: 'bg-indigo-50 text-indigo-700 ring-indigo-100',
+    emerald: 'bg-emerald-50 text-emerald-700 ring-emerald-100',
+    amber: 'bg-amber-50 text-amber-700 ring-amber-100',
+    gray: 'bg-gray-50 text-gray-700 ring-gray-100',
+  };
+  return (
+    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ring-1 ${colorMap[color]}`}>
+      <span className="text-xs text-gray-500">{label}</span>
+      <span className="text-sm font-bold">{value}</span>
+    </div>
+  );
+}
+
 function Employees() {
+  const employees = [
+    {
+      fullName: 'اميرة مجدي',
+      title: 'مسوؤل',
+      email: 'admin@tcavisa.com',
+      phone: '54002013',
+      department: 'المالية',
+      hiredAt: '1\u200F/1\u200F/2015',
+      status: 'نشط',
+      contract: 'عقد محدد المدة',
+    },
+  ];
+
   return (
     <div className="space-y-4">
-      <SectionCard title="سجل الموظفين" icon={Users} hint="قابل للتوسعة لاحقًا">
-        <div className="flex flex-col md:flex-row gap-3 mb-4">
-          <input className="w-full md:w-72 rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" placeholder="ابحث بالاسم أو الرقم" />
-          <select className="w-full md:w-48 rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-            <option>كل الإدارات</option>
-            <option>الموارد البشرية</option>
-            <option>المالية</option>
-            <option>الإنتاج</option>
-          </select>
-          <button className="rounded-lg bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700">إضافة موظف</button>
+      <SectionCard title="سجل الموظفين" icon={Users} hint="إدارة الموظفين وفق المعايير التونسية 2025">
+        {/* Top actions */}
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
+          <div className="flex items-center gap-2 w-full md:w-auto">
+            <div className="relative w-full md:w-80">
+              <Search className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
+              <input
+                className="w-full rounded-lg border border-gray-300 pl-3 pr-9 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="البحث عن موظف..."
+              />
+            </div>
+            <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-50">
+              <Filter className="h-4 w-4 text-gray-500" />
+              الفلاتر
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-50">
+              <Download className="h-4 w-4 text-gray-600" />
+              تصدير PDF
+            </button>
+            <button className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 text-white px-3 py-2 text-sm hover:bg-indigo-700">
+              <Plus className="h-4 w-4" />
+              موظف جديد
+            </button>
+          </div>
         </div>
-        <EmptyState message="لا توجد بيانات بعد. سيتم ربط هذا القسم بقاعدة البيانات لاحقًا." />
+
+        {/* Filter tabs */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <button className="px-3 py-1.5 text-sm rounded-full bg-indigo-600 text-white">الكل</button>
+          <button className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-gray-50">نشط</button>
+          <button className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-gray-50">في إجازة</button>
+          <button className="px-3 py-1.5 text-sm rounded-full bg-white border border-gray-200 hover:bg-gray-50">عقد محدد المدة</button>
+        </div>
+
+        {/* Stat pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <StatPill label="إجمالي الموظفين" value={employees.length} color="indigo" />
+          <StatPill label="نشطين" value={employees.filter(e => e.status === 'نشط').length} color="emerald" />
+          <StatPill label="في إجازة" value={employees.filter(e => e.status === 'في إجازة').length} color="amber" />
+        </div>
+
+        {/* Table */}
+        <div className="overflow-x-auto rounded-lg border border-gray-200">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">الاسم الكامل</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">المنصب</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">البريد الإلكتروني</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">الهاتف</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">الإدارة</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">تاريخ التوظيف</th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500">الحالة</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 bg-white">
+              {employees.map((e, idx) => (
+                <tr key={idx} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{e.fullName}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{e.title}</td>
+                  <td className="px-4 py-3 text-sm text-indigo-600">{e.email}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{e.phone}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{e.department}</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">{e.hiredAt}</td>
+                  <td className="px-4 py-3 text-sm">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                      {e.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Footer hint */}
+        <p className="mt-3 text-xs text-gray-500">إدارة 1 موظفين ومعلوماتهم وفقاً للمعايير التونسية</p>
       </SectionCard>
     </div>
   );

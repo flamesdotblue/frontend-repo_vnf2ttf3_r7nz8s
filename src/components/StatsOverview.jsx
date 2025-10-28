@@ -29,7 +29,7 @@ export default function StatsOverview() {
       <Card
         icon={Users}
         title="إجمالي الموظفين"
-        value="0"
+        value="1"
         delta="+0%"
         subtitle="العدد الإجمالي الحالي"
         color="bg-indigo-600"
@@ -37,9 +37,9 @@ export default function StatsOverview() {
       <Card
         icon={Clock}
         title="الحاضرون اليوم"
-        value="0"
+        value="1"
         delta="+0%"
-        subtitle="0% من الموظفين"
+        subtitle="100% من الموظفين"
         color="bg-emerald-600"
       />
       <Card
