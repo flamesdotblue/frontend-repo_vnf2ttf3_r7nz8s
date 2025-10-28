@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import Sidebar from './components/Sidebar.jsx';
 import Header from './components/Header.jsx';
 import StatsOverview from './components/StatsOverview.jsx';
-import SectionPlaceholder from './components/SectionPlaceholder.jsx';
+import SectionRouter from './components/SectionRouter.jsx';
 
 export default function App() {
   const items = useMemo(
@@ -101,10 +101,7 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <SectionPlaceholder
-                title={currentTitle}
-                description="واجهة حديثة ومتوافقة مع المعايير التونسية 2025. سنضيف إدارة البيانات والتقارير والعمليات خطوة بخطوة."
-              />
+              <SectionRouter selectedKey={selectedKey} />
             )}
           </div>
         </main>
